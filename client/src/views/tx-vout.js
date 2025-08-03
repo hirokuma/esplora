@@ -19,7 +19,11 @@ const layout = (vout, desc, body, { t, spend, ...S }) => (
           {!unspendable_types.includes(vout.scriptpubkey_type) &&
             spend &&
             (spend.spent ? (
-              <span className="text-danger mr-1">{t`Spent`}</span>
+              <a
+                href={`tx/${spend.txid}?input:${spend.vin}`}
+                className="text-danger mr-1"
+                title={t`Spent by ${spend.txid}:${spend.vin}`}
+              >{t`Spent`}</a>
             ) : (
               <span className="text-success mr-1">{t`Unspent`}</span>
             ))}
