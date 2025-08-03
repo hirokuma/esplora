@@ -61,7 +61,12 @@ export const txBox = (tx, { t, openTx, tipHeight, spends, query, unblinded, ...S
 
   return <div className="transaction-box" id="transaction-box">
     <div className="header">
-      <div className="txn font-p2"><a href={`tx/${tx.txid}`}>{tx.txid}</a></div>
+      <div className="txn font-p2 block-hash">
+        <a href={`tx/${tx.txid}`}>{tx.txid}</a>
+        { process.browser && <div className="code-button">
+          <div className="code-button-btn" role="button" data-clipboardCopy={tx.txid}></div>
+        </div> }
+      </div>
       {btnDetails(tx.txid, vopt.isOpen, query, t)}
     </div>
     <div className="ins-and-outs">
