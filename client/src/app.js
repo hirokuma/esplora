@@ -329,6 +329,12 @@ export default function main({ DOM, HTTP, route, storage, scanner: scan$, search
     // fetch spending txs when viewing a transaction page
     , goTx$.map(txid        => ({ category: 'tx-spends',  method: 'GET', path: `/tx/${txid}/outspends`, txid }))
 
+    // fetch spending txs for the transactions shown on the block/address pages
+    , O.merge(reply('block-txs'), reply('addr-txs'), reply('addr-txs-more'))
+        .flatMap(txs => txs.map(tx => (
+          { category: 'tx-spends', method: 'GET', path: `/tx/${tx.txid}/outspends`, txid: tx.txid, bg: true }
+        )))
+
     // in browser env, get the tip every 30s (but only when the page is active) or when we render a block/tx/addr, but not more than once every 5s
     // in server env, just get it once
     , (process.browser ? O.merge(tickWhileFocused(30000), goBlock$, goTx$, goAddr$).throttleTime(5000)
