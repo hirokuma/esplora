@@ -3,16 +3,33 @@ import { formatOutAmount, linkToAddr, linkToParentAddr, formatNumber } from './u
 
 const unspendable_types = [ 'op_return', 'provably_unspendable', 'fee' ]
 
-const layout = (vout, desc, body, { t, ...S }) =>
-  <div class={{ vout: true, active: isActive(vout, S), unblinded: isUnblinded(vout) }}>
+const layout = (vout, desc, body, { t, spend, ...S }) => (
+  <div
+    class={{
+      vout: true,
+      active: isActive(vout, S),
+      unblinded: isUnblinded(vout),
+      spent: spend && spend.spent,
+    }}
+  >
     <div className="vout-header">
       <div className="vout-header-container">
-        <span>{ desc || t`Nonstandard` }</span>
-        <span className="amount">{formatOutAmount(vout, { t, ...S })}</span>
+        <span>{desc || t`Nonstandard`}</span>
+        <span className="amount">
+          {!unspendable_types.includes(vout.scriptpubkey_type) &&
+            spend &&
+            (spend.spent ? (
+              <span className="text-danger mr-1">{t`Spent`}</span>
+            ) : (
+              <span className="text-success mr-1">{t`Unspent`}</span>
+            ))}
+          {formatOutAmount(vout, { t, ...S })}
+        </span>
       </div>
     </div>
-    { body }
+    {body}
   </div>
+);
 
 const isActive = (vout, { index, view, query, addr }) =>
    (view == 'tx' && query && !!query[`output:${index}`])
@@ -107,7 +124,7 @@ const standard = (vout, { isOpen, spend, t, ...S }) => layout(
     }
 
   </div>
-, { t, ...S }
+, { t, spend, ...S }
 )
 
 const getOpReturn = vout => {
