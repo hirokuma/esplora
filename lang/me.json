@@ -26,6 +26,7 @@
   "Search for block height, hash, transaction, or address": "Pretraga po visini bloka, hash, transakciji ili adresi",
   "Size (KB)": "Velicina (KB)",
   "%s of %s Transactions": "%0 od %1 Transakicja",
+  "Spent": "Potroseni",
   "Spent by": "Potroseni od strane",
   "%s Transactions": [
     "%0 Transakcija",
