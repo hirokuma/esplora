@@ -7,3 +7,13 @@ blocknotify=pkill -USR1 electrs
 fallbackfee=0.00001
 maxmempool=1000
 rpcservertimeout=600
+
+bind=0.0.0.0
+rpcbind=0.0.0.0
+rpcallowip=0.0.0.0/0
+#rpcuser=testuser
+#rpcpassword=testpass
+rpcauth=testuser:90d538109436dcea4d3da67f65d6aa00$21214960fe9d1bbd9d5f40ab16212fe9aa3d87a59e2cfef91232729c5de00657
+
+blockfilterindex=1
+peerblockfilters=1

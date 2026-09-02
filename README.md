@@ -19,6 +19,48 @@ Join the translation efforts on [Transifex](https://transifex.com/blockstream/es
 
 ![Esplora](https://raw.githubusercontent.com/Blockstream/esplora/master/flavors/blockstream/www/img/social-sharing.png)
 
+## 改造版
+
+* voutに"Unspent"/"Spent"が表示される
+* TXIDのコピー
+* (regtestのみ)JSON-RPC使用可能
+* (regtestのみ)Compact Block Filter有効
+
+```shell
+$ docker build -t esplora-hirokuma -f contrib/Dockerfile .
+```
+
+```bash
+DOCKER_CONTAINER_NAME=esplora
+DOCKER_IMAGE_NAME=esplora-hirokuma:latest
+ELECTRUM_PORT=50001
+HTTP_PORT=8094
+RPC_PORT=48332
+P2P_PORT=48444
+
+docker run --name $DOCKER_CONTAINER_NAME \
+    -p $ELECTRUM_PORT:50001 -p $HTTP_PORT:80 \
+    -p $RPC_PORT:18443 -p $P2P_PORT:18444 \
+    -d --rm -t $DOCKER_IMAGE_NAME \
+    bash -c "/srv/explorer/run.sh bitcoin-regtest explorer"
+```
+
+```shell
+$ bitcoin-cli -rpcconnect=127.0.0.1 -rpcport=48443 -rpcuser=testuser -rpcpassword=testpass getblockcount
+201
+
+$ curl --user testuser:testpass --json '{"jsonrpc":"2.0", "id":"curltest", "method":"getblockcount", "params":[]}' http://127.0.0.1:48443
+{"jsonrpc":"2.0","result":201,"id":"curltest"}
+```
+
+簡単なスクリプトつき。
+
+```shell
+$ ./run-esplora-hirokuma.sh start
+$ ./run-esplora-hirokuma.sh generate
+$ ./run-esplora-hirokuma.sh stop
+```
+
 ## Features
 
 - Explore blocks, transactions and addresses
