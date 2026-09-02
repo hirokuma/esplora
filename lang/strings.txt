@@ -167,6 +167,7 @@ Size (KB)
 %s of %s Transactions
 %s outputs
 Spending tx
+Spent
 Spent by
 %s (%s sat/vB)
 Status

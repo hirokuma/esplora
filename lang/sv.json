@@ -26,6 +26,7 @@
   "Search for block height, hash, transaction, or address": "Sök efter blockhöjd, hash, transaktion eller adress",
   "Size (KB)": "Storlek (KB)",
   "%s of %s Transactions": "%0 av %1 transaktioner",
+  "Spent": "Spenderad",
   "Spent by": "Spenderat av",
   "%s Transactions": [
     "%0 transaktioner",

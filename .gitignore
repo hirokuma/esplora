@@ -14,3 +14,5 @@ data_bitcoin_testnet4/
 data_bitcoin_signet/
 data_liquid_testnet/
 .DS_Store
+
+*.sh
